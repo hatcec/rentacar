@@ -5,6 +5,7 @@ import com.tobeto.rentacar.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -39,8 +40,15 @@ public class SecurityConfiguration {
             "/swagger-ui.html",
             "/api/v1/auth/register",
             "/api/v1/auth/login",
-            "/api/v1/users/findByEmail",
-            "/api/v1/licenses/**"
+            "/api/v1/brands/**",
+            "/api/v1/cars/**",
+            "/api/v1/fuels/**",
+            "/api/v1/models/**",
+            "/api/v1/transmissions/**",
+            "/api/v1/rentals/**",
+            "/api/v1/users/**",
+            "/api/v1/**",
+            "/api/**"
     };
 
     @Bean
@@ -48,9 +56,18 @@ public class SecurityConfiguration {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request.requestMatchers("/**")
                         .permitAll()
-                        .requestMatchers(AVAILABLE_URLS).permitAll()
-                        .requestMatchers("/api/v1/admin").hasAnyAuthority(Role.ADMIN.name())
-                        .requestMatchers("/api/v1/user").hasAnyAuthority(Role.USER.name())
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/v1/auth/admin/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/api/v1/auth/user/**").hasAnyAuthority("USER")
+                        .requestMatchers("/api/v1/auth/adminuser/**").hasAnyAuthority("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/signup", "/api/v1/auth/login", "/api/v1/rentals/**", "/api/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/brands/**", "/api/v1/cars/**", "/api/v1/fuels/**", "/api/v1/models/**", "/api/v1/transmissions/**", "/api/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/users/**", "/api/v1/**").hasAuthority(Role.USER.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/users/**", "/api/v1/**").hasAuthority(Role.USER.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/brands/**", "/api/v1/cars/**", "/api/v1/creditCards/**", "/api/v1/fuels/**", "/api/v1/models/**", "api/v1/rentals/**", "/api/v1/transmissions/**", "/api/v1/users/**", "/api/**").hasAuthority(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/brands/**", "/api/v1/cars/**", "/api/v1/fuels/**", "/api/models/**", "/api/transmissions/**", "/api/**").hasAuthority(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/brands/**", "/api/v1/cars/**", "/api/v1/fuels/**", "/api/v1/models/**", "/api/v1/transmissions/**", "/api/**").hasAuthority(Role.ADMIN.name())
+
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(

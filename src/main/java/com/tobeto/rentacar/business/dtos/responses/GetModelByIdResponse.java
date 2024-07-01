@@ -15,4 +15,5 @@ public class GetModelByIdResponse {
     private int fuelId;
     private int transmissionId;
     private LocalDateTime createdDate;
+    private String imageUrl;
 }

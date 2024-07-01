@@ -37,6 +37,7 @@ public class RentacarApplication implements CommandLineRunner {
             user.setEmail("admin@admin.com");
             user.setFirstName("admin");
             user.setLastName("admin");
+            user.setCity("Ankara");
             user.setRole(Role.ADMIN);
             user.setPassword(new BCryptPasswordEncoder().encode("admin"));
             userRepository.save(user);

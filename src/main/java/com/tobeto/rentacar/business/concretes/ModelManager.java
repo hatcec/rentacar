@@ -49,7 +49,7 @@ public class ModelManager implements ModelService {
         Model model = this.modelMapperService.forRequest().map(createModelRequest, Model.class);
         model.setCreatedDate(LocalDateTime.now());
         Fuel fuel=fuelRepository.findById(createModelRequest.getFuelId()).orElseThrow();
-        Brand brand=brandRepository.findById(createModelRequest.getTransmissionId()).orElseThrow();
+        Brand brand=brandRepository.findById(createModelRequest.getBrandId()).orElseThrow();
         Transmission transmission=transmissionRepository.findById(createModelRequest.getTransmissionId()).orElseThrow();
         model.setFuel(fuel);
         model.setBrand(brand);

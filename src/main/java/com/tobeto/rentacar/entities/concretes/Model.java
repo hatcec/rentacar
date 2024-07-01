@@ -33,4 +33,7 @@ public class Model extends BaseEntity {
     @OneToMany(mappedBy = "model")
     private List<Car> cars;
 
+    @Column(name="imageUrl")
+    private String imageUrl;
+
 }

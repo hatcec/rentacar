@@ -16,4 +16,5 @@ public class UpdatedModelResponse {
     private  int fuelId;
     private int transmissionId;
     private LocalDateTime updatedDate;
+    private String imageUrl;
 }
