@@ -22,4 +22,5 @@ public class GetAllModelResponse {
     private int transmissionId;
     private String transmissionName;
     private LocalDateTime createdDate;
+    private String imageUrl;
 }

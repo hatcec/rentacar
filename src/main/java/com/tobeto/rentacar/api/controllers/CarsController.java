@@ -49,7 +49,7 @@ public class CarsController {
     public CarDto getCarById(@PathVariable int id ){
         return carService.getCarById(id);
     }
-//        @GetMapping(value = "/search{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+       // @GetMapping(value = "/search{name}", produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(HttpStatus.OK)
 //    public List<CarDto> getAllModelName(@PathVariable String name) {
 //

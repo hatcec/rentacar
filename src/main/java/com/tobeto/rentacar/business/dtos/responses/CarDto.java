@@ -26,6 +26,7 @@ public class CarDto {
     private String fuelName;
     private int trasnmissionId;
     private String transmissionName;
+    private String imageUrl;
 
    // private String imageUrl;
 
